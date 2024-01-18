@@ -22,10 +22,16 @@ func Error(errMsg string, details string) {
 	}).Error(errMsg)
 }
 
-func Info(errMsg string, details string) {
-	log.WithFields(logrus.Fields{
-		"details": details,
-	}).Error(errMsg)
+func Info(msg string, details string) {
+    log.WithFields(logrus.Fields{
+        "details": details,
+    }).Info(msg)
+}
+
+func Debug(msg string, details string) {
+    log.WithFields(logrus.Fields{
+        "details": details,
+    }).Debug(msg)
 }
 
 func Warn(errMsg string, details string) {

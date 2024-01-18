@@ -7,3 +7,5 @@ CREATE TABLE IF NOT EXISTS people (
     gender TEXT,
     nationality TEXT
 );
+
+CREATE INDEX idx_people_name_surname_patronymic ON people (name, surname, patronymic);

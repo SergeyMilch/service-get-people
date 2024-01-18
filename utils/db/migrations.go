@@ -10,32 +10,22 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-// func ExecMigrations(db *sqlx.DB) error {
-// 	m, err := migrate.New("file://utils/db/migrations", os.Getenv("DB_URL"))
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-// 		log.Fatal(err)
-// 	}
-// 	return nil
-// }
-
 func ExecMigrations(db *sqlx.DB) {
     driver, err := postgres.WithInstance(db.DB, &postgres.Config{})
     if err != nil {
-        log.Fatal(err)
+        log.Fatal("Error creating database driver instance:", err)
     }
 
     m, err := migrate.NewWithDatabaseInstance(
         "file://utils/db/migrations", 
         "postgres", driver)
     if err != nil {
-        log.Fatal(err)
+        log.Fatal("Error creating migration instance:", err)
     }
 
     if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-        log.Fatal(err)
+        log.Fatal("Error applying migrations:", err)
     }
+
+    log.Println("Migrations applied successfully")
 }
